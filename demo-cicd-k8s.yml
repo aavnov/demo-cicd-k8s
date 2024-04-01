@@ -38,3 +38,4 @@ spec:
   - nodePort: 31113
     port: 8082
     targetPort: 8090
+

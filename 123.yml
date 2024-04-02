@@ -1,4 +1,3 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -18,26 +17,9 @@ spec:
     spec:
       containers:
       - name: demo-cicd-k8s-container
-        image: 192.168.1.39:5000/demo-cicd-k8s-app:1.0
+        image: 192.168.1.39:5000/demo-cicd-k8s-app:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8090
       imagePullSecrets:
-      - name: regcred    
----
-apiVersion: v1
-kind: Service 
-metadata:
-  name: demo-cicd-k8s-svc
-  labels:
-    app: demo-cicd-k8s-app
-spec:
-  selector:
-    app: demo-cicd-k8s-app
-    version: blue
-  type: NodePort
-  ports:
-  - nodePort: 31113
-    port: 8082
-    targetPort: 8090
-
+      - name: regcred   

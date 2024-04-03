@@ -35,9 +35,8 @@ spec:
   selector:
     app: demo-cicd-k8s-app
     version: blue
-  type: NodePort
   ports:
-  - nodePort: 31113
-    port: 8082
-    targetPort: 8090
+    - protocol: TCP
+      port: 8082
+      targetPort: 8090
 

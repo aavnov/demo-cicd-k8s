@@ -41,7 +41,7 @@ spec:
 
         stage('Package') {
             steps {
-                sh "git clone https://github.com/aavnov/demo-cicd-k8s"
+                git https://github.com/aavnov/demo-cicd-k8s.git
 //        sh "ls ~/agent/workspace/my-345/demo-cicd-k8s"
 //        sh "find demo-cicd-k8s"
                 echo "==========================================================="

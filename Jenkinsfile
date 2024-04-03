@@ -49,7 +49,7 @@ spec:
                 git([url: 'https://github.com/aavnov/demo-cicd-k8s.git', branch: 'main', credentialsId: 'github'])
 //        sh "ls ~/agent/workspace/my-345/demo-cicd-k8s"
 //        sh "find demo-cicd-k8s"
-                echo "==========================================================="
+                echo "=========================================================="
                 echo "${WORKSPACE}"
                 container('maven') {
                     sh "mvn clean package -f /home/jenkins/agent/workspace/my-345/demo-cicd-k8s/pom.xml"

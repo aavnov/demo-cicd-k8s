@@ -11,11 +11,15 @@
 //   node(POD_LABEL) {
 
 pipeline {
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
+        timestamps()
+    }
     environment {
         imagename = "kevalnagda/flaskapp"
         registryCredential = 'kevalnagda'
         dockerImage = ''
-      }
+    }
     agent {
         kubernetes {
             label 'jx-maven-lib'
@@ -42,7 +46,7 @@ spec:
         stage('Package') {
             steps {
 //                git clone https://github.com/aavnov/demo-cicd-k8s"
-                git([url: 'https://github.com/aavnov/demo-cicd-k8s.git', branch: 'main'])
+                git([url: 'https://github.com/aavnov/demo-cicd-k8s.git', branch: 'main', credentialsId: 'github'])
 //        sh "ls ~/agent/workspace/my-345/demo-cicd-k8s"
 //        sh "find demo-cicd-k8s"
                 echo "==========================================================="

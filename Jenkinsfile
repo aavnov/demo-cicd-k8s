@@ -47,8 +47,8 @@ spec:
             steps {
 //                git clone https://github.com/aavnov/demo-cicd-k8s"
         //        git([url: 'https://github.com/aavnov/demo-cicd-k8s.git', branch: 'main', credentialsId: 'github'])
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']],
-                    userRemoteConfigs: [[url: 'https://github.com/aavnov/demo-cicd-k8s.git']]])
+  //              checkout([$class: 'GitSCM', branches: [[name: '*/main']],
+    //                userRemoteConfigs: [[url: 'https://github.com/aavnov/demo-cicd-k8s.git']]])
 //        sh "ls ~/agent/workspace/my-345/demo-cicd-k8s"
 //        sh "find demo-cicd-k8s"
                 echo "=========================================================="

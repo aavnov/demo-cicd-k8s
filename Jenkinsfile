@@ -41,10 +41,10 @@ spec:
 
         stage('Package') {
             steps {
-                git https://github.com/aavnov/demo-cicd-k8s.git
+//                git clone https://github.com/aavnov/demo-cicd-k8s"
+                git([url: 'https://github.com/aavnov/demo-cicd-k8s.git', branch: 'main'])
 //        sh "ls ~/agent/workspace/my-345/demo-cicd-k8s"
 //        sh "find demo-cicd-k8s"
-
                 echo "==========================================================="
                 echo "${WORKSPACE}"
                 container('maven') {

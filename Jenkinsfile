@@ -1,15 +1,38 @@
-podTemplate(containers: [
-  containerTemplate(name: 'maven', image: 'maven:3.6.3-adoptopenjdk-11-openj9', ttyEnabled: true, command: 'cat'),
-  containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true)
-  ],
-  volumes: [
-      hostPathVolume(hostPath: '/var/run/docker.sock',   mountPath: '/var/run/docker.sock'),
-      hostPathVolume(hostPath: '/home/root/repository',  mountPath: '/root/.m2/repository'),
-  ]) 
-{
-  properties([disableConcurrentBuilds()])
-  node(POD_LABEL) {
-    def dockerImage
+// podTemplate(containers: [
+//   containerTemplate(name: 'maven', image: 'maven:3.6.3-adoptopenjdk-11-openj9', ttyEnabled: true, command: 'cat'),
+//   containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true)
+//   ],
+//   volumes: [
+//       hostPathVolume(hostPath: '/var/run/docker.sock',   mountPath: '/var/run/docker.sock'),
+//       hostPathVolume(hostPath: '/home/root/repository',  mountPath: '/root/.m2/repository'),
+//   ])
+// {
+//   properties([disableConcurrentBuilds()])
+//   node(POD_LABEL) {
+
+pipeline {
+    agent {
+        kubernetes {
+            label 'jx-maven-lib'
+            yaml """
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: maven
+    image: maven:3.6.3-adoptopenjdk-11-openj9
+    command: ['cat']
+    tty: true
+  - name: docker
+    image: docker
+    command: ['cat']
+    tty: true
+"""
+        }
+    }
+
+     def dockerImage
+     stages {
 
     stage('Package'){
         sh "git clone https://github.com/aavnov/demo-cicd-k8s"
@@ -54,7 +77,9 @@ sh " docker login -u admin -p 123 192.168.1.39:5000 "
 //            build job: 'deploy'
         
     }
+
+    }
     
 
  }
-}
+//}

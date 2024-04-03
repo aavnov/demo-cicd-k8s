@@ -54,7 +54,8 @@ spec:
                 echo "=========================================================="
                 echo "${WORKSPACE}"
                 container('maven') {
-                    sh "mvn clean package -f /home/jenkins/agent/workspace/my-345/demo-cicd-k8s/pom.xml"
+                sh 'du -a '
+                    //sh "mvn clean package -f /home/jenkins/agent/workspace/my-345/demo-cicd-k8s/pom.xml"
                 }
             }
         }

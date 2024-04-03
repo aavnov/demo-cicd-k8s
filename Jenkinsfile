@@ -11,6 +11,11 @@
 //   node(POD_LABEL) {
 
 pipeline {
+    environment {
+        imagename = "kevalnagda/flaskapp"
+        registryCredential = 'kevalnagda'
+        dockerImage = ''
+      }
     agent {
         kubernetes {
             label 'jx-maven-lib'
@@ -31,7 +36,7 @@ spec:
         }
     }
 
-     def dockerImage
+
      stages {
 
     stage('Package'){

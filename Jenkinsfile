@@ -45,7 +45,7 @@ spec:
 
         stage('Package') {
             steps {
-
+checkout scm
                 echo "=========================================================="
                 echo "${WORKSPACE}"
                 container('maven') {

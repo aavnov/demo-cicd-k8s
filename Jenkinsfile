@@ -21,25 +21,25 @@ pipeline {
         registryCredential = 'kevalnagda'
         dockerImage = ''
     }
-    agent {
-        kubernetes {
-            label 'jx-maven-lib'
-            yaml """
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: maven
-    image: maven:3.6.3-adoptopenjdk-11-openj9
-    command: ['cat']
-    tty: true
-  - name: docker
-    image: docker
-    command: ['cat']
-    tty: true
-"""
-        }
-    }
+//     agent {
+//         kubernetes {
+//             label 'jx-maven-lib'
+//             yaml """
+// apiVersion: v1
+// kind: Pod
+// spec:
+//   containers:
+//   - name: maven
+//     image: maven:3.6.3-adoptopenjdk-11-openj9
+//     command: ['cat']
+//     tty: true
+//   - name: docker
+//     image: docker
+//     command: ['cat']
+//     tty: true
+// """
+//         }
+//     }
 
 
     stages {
@@ -52,20 +52,30 @@ spec:
             }
         }
 
-//        stage('Package') {
-//         agent any
+       stage('Package') {
+                               agent {
+                                   kubernetes {
+                                       label 'jxmavenlib-jdk11_build'
+                                       containerTemplate {
+                                           name 'maven11'
+                                           image 'maven:3.6.3-adoptopenjdk-11-openj9'
+                                           ttyEnabled true
+                                           command 'cat'
+                                       }
+                                   }
+                               }
 
 
-//             steps {
-//                 sh "git clone https://github.com/aavnov/demo-cicd-k8s.git"
-//                 echo "=========================================================="
-//                 echo "${WORKSPACE}"
-//                 container('maven') {
-//                 sh 'du -a '
-//
-//                 }
-//             }
-//        }
+            steps {
+
+                echo "=========================================================="
+                echo "${WORKSPACE}"
+                container('maven11') {
+                sh 'mvn clean package'
+
+                }
+            }
+       }
         
 //         stage('Build image') {
 //             steps {

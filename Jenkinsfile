@@ -58,29 +58,13 @@ spec:
 //             }
 //         }
 
-       stage('Package') {
-//                                agent {
-//                                    kubernetes {
-//                                        label 'jxmavenlib-jdk11_build'
-//                                        containerTemplate {
-//                                            name 'maven11'
-//                                            image 'maven:3.6.3-adoptopenjdk-11-openj9'
-//                                            ttyEnabled true
-//                                            command 'cat'
-//                                        }
-//                                    }
-//                                }
-
-
+        stage('Package') {
             steps {
-
-                echo "=========================================================="
-
+               echo "=========================================================="
                 container('maven11') {
 //                echo "${WORKSPACE}"
 //                sh "du -a"
-                sh "mvn clean package -f /home/jenkins/agent/workspace/my-456_main/pom.xml"
-
+                   sh "mvn clean package -f /home/jenkins/agent/workspace/my-456_main/pom.xml"
                 }
             }
        }
@@ -89,17 +73,12 @@ spec:
             steps {
                 container('docker') {
 //            sh "docker system prune -f"
-                   // sh " docker info "
-                   // sh " docker login -u admin -p 123 192.168.1.39:5000 "
-                   //sh " docker build . -t 192.168.1.39:5000/demo-cicd-k8s-app "
-//sh "docker pull 192.168.1.39:5000/demo-cicd-k8s-app:1.0"
- script {
-          dockerImage = docker.build imagename
-                             sh " docker login -u admin -p 123 192.168.1.39:5000 "
-                             dockerImage.push()
-        }
+                    script {
+                        dockerImage = docker.build imagename
+                        sh " docker login -u admin -p 123 192.168.1.39:5000 "
+                        dockerImage.push()
+                    }
                    //dockerImage = docker.build("192.168.1.39:5000/demo-cicd-k8s-app:1.0","/home/jenkins/agent/workspace/my-345/demo-cicd-k8s")
-
                 }
             }
         }

@@ -72,10 +72,10 @@ echo "======================= Build & publish image ============================
         stage('Deploy') {
             steps {
                 container('kubectl') {
-                sh 'kubectl get clusterrole'
-                sh 'kubectl version'
+                //sh 'kubectl get clusterrole'
+                //sh 'kubectl version'
                 //sh 'kubectl delete -f ./demo-cicd-k8s.yml'
-               // sh 'kubectl apply  -f ./demo-cicd-k8s.yml'
+               sh 'kubectl apply  -f ./demo-cicd-k8s.yml'
                // script{
 //                 withKubeConfig(credentialsId: 'MyKubeConfig', serverUrl: 'https://192.168.49.2:8443') {
 //                     echo "========================   ============================="

@@ -32,7 +32,7 @@ spec:
       - mountPath: /var/run/docker.sock
         name: docker-sock
   - name: kubectl
-    image: bitnami/kubectl #lachlanevenson/k8s-kubectl:v1.14.0 # use a version that matches your K8s version
+    image: lachlanevenson/k8s-kubectl:v1.14.0 # use a version that matches your K8s version #bitnami/kubectl
     command: ['cat']
     tty: true
   volumes:

@@ -46,7 +46,7 @@ spec:
         stage('Package') {
         agent any
             steps {
-                checkout scm
+                sh "git clone https://github.com/aavnov/demo-cicd-k8s.git"
                 echo "=========================================================="
                 echo "${WORKSPACE}"
                 container('maven') {

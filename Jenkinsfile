@@ -21,56 +21,57 @@ pipeline {
         registryCredential = 'kevalnagda'
         dockerImage = ''
     }
-//     agent {
-//         kubernetes {
-//             label 'jx-maven-lib'
-//             yaml """
-// apiVersion: v1
-// kind: Pod
-// spec:
-//   containers:
-//   - name: maven
-//     image: maven:3.6.3-adoptopenjdk-11-openj9
-//     command: ['cat']
-//     tty: true
-//   - name: docker
-//     image: docker
-//     command: ['cat']
-//     tty: true
-// """
-//         }
-//     }
+    agent {
+        kubernetes {
+            label 'jx-maven-lib'
+            yaml """
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: maven11
+    image: maven:3.6.3-adoptopenjdk-11-openj9
+    command: ['cat']
+    tty: true
+  - name: docker
+    image: docker
+    command: ['cat']
+    tty: true
+"""
+        }
+    }
 
 
     stages {
  //To checkout based on the configured credentials in the current Jenkins Job
-        stage('Checkout SCM') {
-            steps {
-                echo " ============ start checkout scm ================"
-            	checkout scm
-            }
-        }
+//         stage('Checkout SCM') {
+//             steps {
+//                 echo " ============ start checkout scm ================"
+//             	checkout scm
+//             }
+//         }
 
        stage('Package') {
-                               agent {
-                                   kubernetes {
-                                       label 'jxmavenlib-jdk11_build'
-                                       containerTemplate {
-                                           name 'maven11'
-                                           image 'maven:3.6.3-adoptopenjdk-11-openj9'
-                                           ttyEnabled true
-                                           command 'cat'
-                                       }
-                                   }
-                               }
+//                                agent {
+//                                    kubernetes {
+//                                        label 'jxmavenlib-jdk11_build'
+//                                        containerTemplate {
+//                                            name 'maven11'
+//                                            image 'maven:3.6.3-adoptopenjdk-11-openj9'
+//                                            ttyEnabled true
+//                                            command 'cat'
+//                                        }
+//                                    }
+//                                }
 
 
             steps {
 
                 echo "=========================================================="
-                echo "${WORKSPACE}"
+
                 container('maven11') {
-                sh "du -a"
+//                echo "${WORKSPACE}"
+//                sh "du -a"
                 sh "mvn clean package -f /home/jenkins/agent/workspace/my-456_main/pom.xml"
 
                 }

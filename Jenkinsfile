@@ -69,6 +69,7 @@ echo "======================= Build & publish image ============================
 //            sh "docker system prune -f"
 
 
+
         stage('Deploy') {
             steps {
                 container('kubectl') {

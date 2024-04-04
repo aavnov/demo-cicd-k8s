@@ -14,7 +14,7 @@ pipeline {
     }
     agent {
         kubernetes {
-            label 'jx-maven-lib'
+
             yaml """
 apiVersion: v1
 kind: Pod

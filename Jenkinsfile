@@ -32,27 +32,13 @@ spec:
       - mountPath: /var/run/docker.sock
         name: docker-sock
   - name: kubectl
-    image: qqq #lachlanevenson/k8s-kubectl:v1.14.0 # bitnami/kubectl:1.20.9 # use a version that matches your K8s version #bitnami/kubectl
-
-    volumeMounts:
-      - name: kubectl-binary
-        mountPath: /usr/local/bin/kubectl
-        readOnly: true
-      - name: kubectl-config
-        mountPath: /home/aav/.kube/config
-        readOnly: true
-
-
+    image: lachlanevenson/k8s-kubectl:v1.14.0 # bitnami/kubectl:1.20.9 # use a version that matches your K8s version #bitnami/kubectl
+    command: ['cat']
+    tty: true
   volumes:
       - name: docker-sock
         hostPath:
           path: /var/run/docker.sock
-      - name: kubectl-binary
-        hostPath:
-          path: /usr/local/bin/kubectl
-      - name: kubectl-config
-        hostPath:
-          path: /home/aav/.kube/config
 """
         }
     }
@@ -88,7 +74,7 @@ echo "======================= Build & publish image ============================
             steps {
                 container('kubectl') {
                 //sh 'kubectl get clusterrole'
-                //sh 'kubectl version'
+                sh 'kubectl version'
                 //sh 'kubectl delete -f ./demo-cicd-k8s.yml'
                sh 'kubectl apply  -f ./demo-cicd-k8s.yml'
                // script{

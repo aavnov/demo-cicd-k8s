@@ -43,16 +43,17 @@ agent any
 
 
     stages {
+ //To checkout based on the configured credentials in the current Jenkins Job
+        stage('Checkout SCM') {
+            steps {
+                echo " ============ start checkout scm ================"
+            	checkout scm
+            }
+        }
 
         stage('Package') {
 //         agent any
-        //To checkout based on the configured credentials in the current Jenkins Job
-        		stage('Checkout SCM') {
-        			steps {
-        			echo " ============ start checkout scm ================"
-        				checkout scm
-        			}
-        		}
+
 
 //             steps {
 //                 sh "git clone https://github.com/aavnov/demo-cicd-k8s.git"

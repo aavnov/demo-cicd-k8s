@@ -33,14 +33,15 @@ spec:
         name: docker-sock
   - name: kubectl
     image: lachlanevenson/k8s-kubectl:v1.14.0 # bitnami/kubectl:1.20.9 # use a version that matches your K8s version #bitnami/kubectl
-
+    command: ['cat']
+    tty: true
     volumeMounts:
-            - name: kubectl-binary
-              mountPath: /usr/local/bin/kubectl
-              readOnly: true
-            - name: kubectl-config
-              mountPath: /home/aav/.kube/config
-              readOnly: true
+      - name: kubectl-binary
+        mountPath: /usr/local/bin/kubectl
+        readOnly: true
+      - name: kubectl-config
+        mountPath: /home/aav/.kube/config
+        readOnly: true
 
 
   volumes:
@@ -48,11 +49,11 @@ spec:
         hostPath:
           path: /var/run/docker.sock
       - name: kubectl-binary
-              hostPath:
-                path: /usr/local/bin/kubectl
-            - name: kubectl-config
-              hostPath:
-                path: /home/aav/.kube/config
+        hostPath:
+          path: /usr/local/bin/kubectl
+      - name: kubectl-config
+        hostPath:
+          path: /home/aav/.kube/config
 """
         }
     }

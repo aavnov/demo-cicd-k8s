@@ -31,6 +31,10 @@ spec:
     volumeMounts:
       - mountPath: /var/run/docker.sock
         name: docker-sock
+  - name: kubectl
+    image: lachlanevenson/k8s-kubectl:v1.14.0 # use a version that matches your K8s version
+    command: ['cat']
+    tty: true
   volumes:
       - name: docker-sock
         hostPath:
@@ -67,7 +71,8 @@ echo "======================= Build & publish image ============================
 
         stage('Deploy') {
             steps {
-                script{
+                container('kubectl') {
+               // script{
                 withKubeConfig(credentialsId: 'MyKubeConfig', serverUrl: 'https://192.168.49.2:8443') {
                     echo "========================   ============================="
                     sh ' du -a '

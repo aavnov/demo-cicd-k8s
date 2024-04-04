@@ -65,22 +65,22 @@ echo "======================= Build & publish image ============================
 //            sh "docker system prune -f"
 
 
-//         stage('Deploy') {
-//         steps {
-//             script{
-//                 withKubeConfig(credentialsId: 'MyKubeConfig', serverUrl: 'https://192.168.49.2:8443') {
-//                     echo "========================   ============================="
-//                     sh ' du -a '
-//                     sh 'cat demo-cicd-k8s/demo-cicd-k8s.yml'
-//                     sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
-//                     sh 'chmod u+x ./kubectl'
-//                     sh './kubectl get nodes'
-//                     sh './kubectl get pods -A'
-//                     sh './kubectl apply -f ./demo-cicd-k8s/demo-cicd-k8s.yml'
-//                 }
-//             }
-//         }
-//         }
+        stage('Deploy') {
+            steps {
+                script{
+                withKubeConfig(credentialsId: 'MyKubeConfig', serverUrl: 'https://192.168.49.2:8443') {
+                    echo "========================   ============================="
+                    sh ' du -a '
+                //    sh 'cat demo-cicd-k8s/demo-cicd-k8s.yml'
+            //        sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
+              //      sh 'chmod u+x ./kubectl'
+                    sh './kubectl get nodes'
+                    sh './kubectl get pods -A'
+                    sh './kubectl apply -f ./demo-cicd-k8s/demo-cicd-k8s.yml'
+                }
+                }
+            }
+        }
     }
     
 

@@ -73,7 +73,8 @@ echo "======================= Build & publish image ============================
             steps {
                 container('kubectl') {
                 //sh "kubectl get nodes"
-                sh 'kubectl get pods -A'
+                //sh 'kubectl get pods -A'
+                sh 'kubectl apply -f ./demo-cicd-k8s/demo-cicd-k8s.yml'
                // script{
 //                 withKubeConfig(credentialsId: 'MyKubeConfig', serverUrl: 'https://192.168.49.2:8443') {
 //                     echo "========================   ============================="

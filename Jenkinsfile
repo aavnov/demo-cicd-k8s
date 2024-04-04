@@ -17,7 +17,7 @@ pipeline {
         timestamps()
     }
     environment {
-        imagename = "kevalnagda/flaskapp"
+        imagename = "192.168.1.39:5000/demo-cicd-k8s-app:1.0"
         registryCredential = 'kevalnagda'
         dockerImage = ''
     }
@@ -93,6 +93,9 @@ spec:
                    // sh " docker login -u admin -p 123 192.168.1.39:5000 "
                    sh " docker build . -t 192.168.1.39:5000/demo-cicd-k8s-app "
 //sh "docker pull 192.168.1.39:5000/demo-cicd-k8s-app:1.0"
+ script {
+          dockerImage = docker.build imagename
+        }
                    //dockerImage = docker.build("192.168.1.39:5000/demo-cicd-k8s-app:1.0","/home/jenkins/agent/workspace/my-345/demo-cicd-k8s")
                    sh " docker login -u admin -p 123 192.168.1.39:5000 "
                    dockerImage.push()

@@ -51,7 +51,7 @@ agent any
             }
         }
 
-        stage('Package') {
+//        stage('Package') {
 //         agent any
 
 
@@ -64,7 +64,7 @@ agent any
 //
 //                 }
 //             }
-        }
+//        }
         
 //         stage('Build image') {
 //             steps {

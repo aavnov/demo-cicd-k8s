@@ -44,8 +44,9 @@ spec:
     stages {
 
         stage('Package') {
+        agent any
             steps {
-checkout scm
+                checkout scm
                 echo "=========================================================="
                 echo "${WORKSPACE}"
                 container('maven') {

@@ -34,7 +34,7 @@ spec:
     command: ['cat']
     tty: true
   - name: docker
-    image: docker-ce
+    image: docker
     command: ['cat']
     tty: true
 """

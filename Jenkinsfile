@@ -72,6 +72,7 @@ echo "======================= Build & publish image ============================
         stage('Deploy') {
             steps {
                 container('kubectl') {
+                sh 'kubectl version'
                 //sh 'kubectl delete -f ./demo-cicd-k8s.yml'
                 sh 'kubectl apply  -f ./demo-cicd-k8s.yml'
                // script{

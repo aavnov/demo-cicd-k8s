@@ -1,17 +1,8 @@
 // podTemplate(containers: [
 //   containerTemplate(name: 'maven', image: 'maven:3.6.3-adoptopenjdk-11-openj9', ttyEnabled: true, command: 'cat'),
 //   containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true)
-//   ],
-//   volumes: [
-//       hostPathVolume(hostPath: '/var/run/docker.sock',   mountPath: '/var/run/docker.sock'),
-//       hostPathVolume(hostPath: '/home/root/repository',  mountPath: '/root/.m2/repository'),
-//   ])
-// {
-//   properties([disableConcurrentBuilds()])
-//   node(POD_LABEL) {
 
 pipeline {
-//    agent any
     options {
         buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
         timestamps()
@@ -29,7 +20,7 @@ apiVersion: v1
 kind: Pod
 spec:
   containers:
-  - name: maven11
+  - name: maven
     image: maven:3.6.3-adoptopenjdk-11-openj9
     command: ['cat']
     tty: true
@@ -50,38 +41,29 @@ spec:
 
 
     stages {
- //To checkout based on the configured credentials in the current Jenkins Job
-//         stage('Checkout SCM') {
-//             steps {
-//                 echo " ============ start checkout scm ================"
-//             	checkout scm
-//             }
-//         }
-
-        stage('Package') {
+        stage('Build maven project') {
             steps {
-               echo "=========================================================="
-                container('maven11') {
-//                echo "${WORKSPACE}"
-//                sh "du -a"
+echo "======================= Build maven project ==================================="
+                container('maven') {
                    sh "mvn clean package -f /home/jenkins/agent/workspace/my-456_main/pom.xml"
                 }
             }
-       }
+        }
         
-        stage('Build image') {
+        stage('Build & publish image') {
             steps {
+echo "======================= Build & publish image ==================================="
                 container('docker') {
-//            sh "docker system prune -f"
                     script {
                         dockerImage = docker.build imagename
                         sh " docker login -u admin -p 123 192.168.1.39:5000 "
                         dockerImage.push()
                     }
-                   //dockerImage = docker.build("192.168.1.39:5000/demo-cicd-k8s-app:1.0","/home/jenkins/agent/workspace/my-345/demo-cicd-k8s")
                 }
             }
         }
+//            sh "docker system prune -f"
+
 
 //         stage('Deploy') {
 //         steps {
@@ -102,5 +84,5 @@ spec:
     }
     
 
- }
-//}
+}
+

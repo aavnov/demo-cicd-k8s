@@ -84,7 +84,8 @@ spec:
 //            sh "docker system prune -f"
                    // sh " docker info "
                     sh " docker login -u admin -p 123 192.168.1.39:5000 "
-sh "docker pull 192.168.1.39:5000/demo-cicd-k8s-app:1.0"
+                    sh " docker build . -t 192.168.1.39:5000/demo-cicd-k8s-app "
+//sh "docker pull 192.168.1.39:5000/demo-cicd-k8s-app:1.0"
                    //dockerImage = docker.build("192.168.1.39:5000/demo-cicd-k8s-app:1.0","/home/jenkins/agent/workspace/my-345/demo-cicd-k8s")
                    //sh " docker login -u admin -p 123 192.168.1.39:5000 "
                   // dockerImage.push()

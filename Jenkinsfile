@@ -11,6 +11,7 @@
 //   node(POD_LABEL) {
 
 pipeline {
+agent any
     options {
         buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
         timestamps()
@@ -20,40 +21,48 @@ pipeline {
         registryCredential = 'kevalnagda'
         dockerImage = ''
     }
-    agent {
-        kubernetes {
-            label 'jx-maven-lib'
-            yaml """
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: maven
-    image: maven:3.6.3-adoptopenjdk-11-openj9
-    command: ['cat']
-    tty: true
-  - name: docker
-    image: docker
-    command: ['cat']
-    tty: true
-"""
-        }
-    }
+//     agent {
+//         kubernetes {
+//             label 'jx-maven-lib'
+//             yaml """
+// apiVersion: v1
+// kind: Pod
+// spec:
+//   containers:
+//   - name: maven
+//     image: maven:3.6.3-adoptopenjdk-11-openj9
+//     command: ['cat']
+//     tty: true
+//   - name: docker
+//     image: docker
+//     command: ['cat']
+//     tty: true
+// """
+//         }
+//     }
 
 
     stages {
 
         stage('Package') {
-        agent any
-            steps {
-                sh "git clone https://github.com/aavnov/demo-cicd-k8s.git"
-                echo "=========================================================="
-                echo "${WORKSPACE}"
-                container('maven') {
-                sh 'du -a '
+//         agent any
+        //To checkout based on the configured credentials in the current Jenkins Job
+        		stage('Checkout SCM') {
+        			steps {
+        			echo " ============ start checkout scm ================"
+        				checkout scm
+        			}
+        		}
 
-                }
-            }
+//             steps {
+//                 sh "git clone https://github.com/aavnov/demo-cicd-k8s.git"
+//                 echo "=========================================================="
+//                 echo "${WORKSPACE}"
+//                 container('maven') {
+//                 sh 'du -a '
+//
+//                 }
+//             }
         }
         
 //         stage('Build image') {

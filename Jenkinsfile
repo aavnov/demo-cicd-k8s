@@ -14,7 +14,7 @@ pipeline {
     }
     agent {
         kubernetes {
-
+            label 'jx-maven-lib'
             yaml """
 apiVersion: v1
 kind: Pod
@@ -32,7 +32,7 @@ spec:
       - mountPath: /var/run/docker.sock
         name: docker-sock
   - name: kubectl
-    image: bitnami/kubectl. # use a version that matches your K8s version
+    image: lachlanevenson/k8s-kubectl:v1.14.0 # use a version that matches your K8s version
     command: ['cat']
     tty: true
   volumes:

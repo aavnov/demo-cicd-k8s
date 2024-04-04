@@ -70,6 +70,7 @@ pipeline {
                 echo "=========================================================="
                 echo "${WORKSPACE}"
                 container('maven11') {
+                sh "du -a"
                 sh "mvn clean package -f /home/jenkins/agent/workspace/my-456/demo-cicd-k8s/pom.xml"
 
                 }

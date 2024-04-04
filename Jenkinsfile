@@ -11,7 +11,7 @@
 //   node(POD_LABEL) {
 
 pipeline {
-//agent any
+    agent any
     options {
         buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
         timestamps()
@@ -45,7 +45,6 @@ pipeline {
     stages {
  //To checkout based on the configured credentials in the current Jenkins Job
         stage('Checkout SCM') {
-            agent any
             steps {
                 echo " ============ start checkout scm ================"
             	checkout scm

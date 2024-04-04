@@ -11,7 +11,7 @@
 //   node(POD_LABEL) {
 
 pipeline {
-    agent any
+//    agent any
     options {
         buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
         timestamps()

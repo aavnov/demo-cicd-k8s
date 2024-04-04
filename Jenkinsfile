@@ -70,6 +70,7 @@ pipeline {
                 echo "=========================================================="
                 echo "${WORKSPACE}"
                 container('maven11') {
+                checkout scm
                 sh 'mvn clean package'
 
                 }

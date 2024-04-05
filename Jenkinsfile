@@ -1,6 +1,3 @@
-// podTemplate(containers: [
-//   containerTemplate(name: 'maven', image: 'maven:3.6.3-adoptopenjdk-11-openj9', ttyEnabled: true, command: 'cat'),
-//   containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true)
 
 pipeline {
     options {
@@ -66,28 +63,16 @@ echo "======================= Build & publish image ============================
                 }
             }
         }
-//            sh "docker system prune -f"
-
 
 
         stage('Deploy') {
             steps {
+echo "======================= Deploy ==================================="
                 container('kubectl') {
-                //sh 'kubectl get clusterrole'
-                sh 'kubectl version'
-                //sh 'kubectl delete -f ./demo-cicd-k8s.yml'
-               sh 'kubectl apply  -f ./demo-cicd-k8s.yml'
-               // script{
-//                 withKubeConfig(credentialsId: 'MyKubeConfig', serverUrl: 'https://192.168.49.2:8443') {
-//                     echo "========================   ============================="
-//                     sh ' du -a '
-//                 //    sh 'cat demo-cicd-k8s/demo-cicd-k8s.yml'
-//             //        sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
-//               //      sh 'chmod u+x ./kubectl'
-//                     sh './kubectl get nodes'
-//                     sh './kubectl get pods -A'
-//                     sh './kubectl apply -f ./demo-cicd-k8s/demo-cicd-k8s.yml'
-//                 }
+                    //sh 'kubectl get clusterrole'
+                    sh 'kubectl version'
+                    sh 'kubectl delete -f ./demo-cicd-k8s.yml'
+                    sh 'kubectl apply  -f ./demo-cicd-k8s.yml'
                 }
             }
         }
